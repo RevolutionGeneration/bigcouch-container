@@ -1,13 +1,19 @@
-# Jenkins.
-FROM debian:jessie
+FROM centos:6
 
 MAINTAINER Michal @ Revolution Generation <michal@revolutiongeneration.co.uk>
 
-# Update
-RUN apt-get update && apt-get install -y zip unzip wget curl git
+RUN useradd -r -g daemon -d /srv bigcouch && \
+    mkdir -p /srv /var/log/bigcouch && \
+    chown bigcouch:daemon /srv /var/log/bigcouch -R
 
-# Install Bigcouch
-EXPOSE 5984
-EXPOSE 5986
+RUN curl -o /etc/yum.repos.d/2600hz.repo http://repo.2600hz.com/2600hz.repo && \
+    yum install -y epel-release && \
+    yum clean all && \
+    yum install -y kazoo-bigcouch-R15B && \
+    yum install -y curl &&
 
-CMD ["/usr/local/bin/start.sh"]
+VOLUME ["/srv"]
+
+EXPOSE 5984 5986
+
+CMD
