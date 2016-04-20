@@ -10,7 +10,9 @@ RUN echo "deb http://us.archive.ubuntu.com/ubuntu/ trusty-updates multiverse" >>
 RUN echo "deb-src http://us.archive.ubuntu.com/ubuntu/ trusty-updates multiverse" >> /etc/apt/source.list
 
 # Update
-RUN apt-get update && apt-get install -y zip unzip wget curl autoconf automake bison build-essential fail2ban gawk git-core wget zip unzip make libncurses5-dev libssl-dev gcc g++ openjdk-6-jdk unixodbc-dev xsltproc vim-nox libexpat1-dev libxml2-dev libicu-dev libcurl4-openssl-dev
+RUN apt-get update && apt-get install -y zip unzip wget curl autoconf automake bison build-essential fail2ban gawk \
+    git-core wget zip unzip make libncurses5-dev libssl-dev gcc g++ openjdk-6-jdk unixodbc-dev xsltproc vim-nox \
+    libexpat1-dev libxml2-dev libicu-dev libcurl4-openssl-dev
 
 # Install lubmozjs
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 74EE6429
@@ -38,6 +40,7 @@ RUN chmod +x /opt/bigcouch/bin/bigcouch
 ENV PATH=$PATH:/opt/bigcouch/bin/
 
 RUN mkdir /etc/bigcouch
+ADD conf/default.ini /etc/bigcouch/default.ini
 ADD conf/local.ini /etc/bigcouch/local.ini
 ADD conf/vm.args /etc/bigcouch/vm.args
 
