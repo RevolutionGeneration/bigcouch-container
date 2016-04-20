@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y zip unzip wget curl autoconf automake b
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 74EE6429
 RUN bash -c 'echo "deb http://ppa.launchpad.net/commonjs/ppa/ubuntu karmic main" >> /etc/apt/sources.list.d/commonjs.list'
 RUN apt-get update
-RUN apt-get install libmozjs-1.9.2 libmozjs-1.9.2-dev
+RUN apt-get install -y libmozjs-1.9.2 libmozjs-1.9.2-dev
 RUN ln -s /usr/lib/libmozjs-1.9.2.so /usr/lib/libmozjs.so
 
 # Install erlang
@@ -30,8 +30,7 @@ RUN ln -s /usr/local/lib/erlang/ /usr/lib/erlang
 # Install Bigcouch
 RUN git clone https://github.com/cloudant/bigcouch.git /usr/src/bigcouch
 WORKDIR /usr/src/bigcouch/
-RUN ./configure
-RUN make && make install
+RUN ./configure && make && make install
 
 # Conf
 ADD build/bigcouch /opt/bigcouch/bin/bigcouch
