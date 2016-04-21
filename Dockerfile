@@ -39,6 +39,8 @@ ADD build/bigcouch /opt/bigcouch/bin/bigcouch
 RUN chmod +x /opt/bigcouch/bin/bigcouch
 ENV PATH=$PATH:/opt/bigcouch/bin/
 
+RUN mkdir /var/log/bigcouch
+
 RUN mkdir /etc/bigcouch
 ADD conf/default.ini /etc/bigcouch/default.ini
 ADD conf/local.ini /etc/bigcouch/local.ini
